@@ -54,6 +54,11 @@ def process_packet(pkt):
         print(f"Error: {e}")
         pkt.accept()
 
+subprocess.run(
+    "echo 1 > /proc/sys/net/ipv4/ip_forward", 
+    shell=True
+)
+
 QUEUE_NUM = 0
 subprocess.run(
     f"iptables -I FORWARD -p tcp --sport 502 -j NFQUEUE --queue-num {QUEUE_NUM} ",
@@ -67,5 +72,5 @@ try:
 except KeyboardInterrupt:
     pass
 finally:
-    subprocess.run(f"iptables -D FORWARD -p tcp --dport 502 -j NFQUEUE --queue-num {QUEUE_NUM}", shell=True)
+    subprocess.run(f"iptables -F", shell=True)
     packet_queue.unbind()

